@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.MainViewController"
+            prefHeight="600.0" prefWidth="900.0"
+            stylesheets="@../css/style.css">
+
+    <!--En-tête -->
+    <top>
+        <VBox styleClass="header">
+            <Label text="GYM MANAGER" styleClass="app-title">
+                <font>
+                    <Font name="System Bold" size="28.0"/>
+                </font>
+            </Label>
+            <Label text="Système de gestion de salle de sport" styleClass="app-subtitle">
+                <font>
+                    <Font size="14.0"/>
+                </font>
+            </Label>
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+        </VBox>
+    </top>
+
+    <!-- Contenu principal -->
+    <center>
+        <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
+
+            <Tab text="Membres">
+                <BorderPane>
+                    <!-- Tableau des membres -->
+                    <center>
+                        <TableView fx:id="membreTableView">
+                            <columns>
+                                <TableColumn fx:id="membreIdColumn" text="ID" prefWidth="50"/>
+                                <TableColumn fx:id="membreNomColumn" text="Nom" prefWidth="200"/>
+                                <TableColumn fx:id="membreEmailColumn" text="Email" prefWidth="250"/>
+                                <TableColumn fx:id="membrePhoneColumn" text="Téléphone" prefWidth="150"/>
+                                <TableColumn fx:id="membreAbonnementColumn" text="Abonnement" prefWidth="200"/>
+                            </columns>
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+                        </TableView>
+                    </center>
+
+                    <!-- Boutons d'action membres -->
+                    <bottom>
+                        <HBox spacing="10" styleClass="button-bar">
+                            <Button fx:id="btnAjouterMembre" text="Ajouter" onAction="#handleAjouterMembre" styleClass="btn-success"/>
+                            <Button fx:id="btnModifierMembre" text="Modifier" onAction="#handleModifierMembre" styleClass="btn-primary"/>
+                            <Button fx:id="btnSupprimerMembre" text="Supprimer" onAction="#handleSupprimerMembre" styleClass="btn-danger"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <TextField fx:id="searchMembreField" promptText="Rechercher un membre..." prefWidth="250"/>
+                            <Button text="Rechercher" onAction="#handleRechercherMembre" styleClass="btn-primary"/>
+                            <Button text="Rafraîchir" onAction="#handleRafraichirMembres" styleClass="btn-secondary"/>
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+                        </HBox>
+                    </bottom>
+                </BorderPane>
+            </Tab>
+
+            <Tab text="Activités">
+                <BorderPane>
+                    <!-- Tableau des activités -->
+                    <center>
+                        <TableView fx:id="activiteTableView">
+                            <columns>
+                                <TableColumn fx:id="activiteIdColumn" text="ID" prefWidth="50"/>
+                                <TableColumn fx:id="activiteNomColumn" text="Nom" prefWidth="200"/>
+                                <TableColumn fx:id="activiteDateColumn" text="Date" prefWidth="120"/>
+                                <TableColumn fx:id="activiteHeureDebutColumn" text="Début" prefWidth="100"/>
+                                <TableColumn fx:id="activiteHeureFinColumn" text="Fin" prefWidth="100"/>
+                                <TableColumn fx:id="activiteCoachColumn" text="Coach" prefWidth="180"/>
+                                <TableColumn fx:id="activiteSalleColumn" text="Salle" prefWidth="150"/>
+                            </columns>
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+                        </TableView>
+                    </center>
+
+                    <!-- Boutons d'action activités -->
+                    <bottom>
+                        <HBox spacing="10" styleClass="button-bar">
+                            <Button fx:id="btnAjouterActivite" text="Ajouter" onAction="#handleAjouterActivite" styleClass="btn-success"/>
+                            <Button fx:id="btnModifierActivite" text="Modifier" onAction="#handleModifierActivite" styleClass="btn-primary"/>
+                            <Button fx:id="btnSupprimerActivite" text="Supprimer" onAction="#handleSupprimerActivite" styleClass="btn-danger"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button text="Rafraîchir" onAction="#handleRafraichirActivites" styleClass="btn-secondary"/>
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+                        </HBox>
+                    </bottom>
+                </BorderPane>
+            </Tab>
+
+            <Tab text="Inscriptions">
+                <BorderPane>
+                    <!-- Tableau des inscriptions -->
+                    <center>
+                        <TableView fx:id="inscriptionTableView">
+                            <columns>
+                                <TableColumn fx:id="inscriptionIdColumn" text="ID" prefWidth="50"/>
+                                <TableColumn fx:id="inscriptionMembreColumn" text="Membre" prefWidth="200"/>
+                                <TableColumn fx:id="inscriptionActiviteColumn" text="Activité" prefWidth="200"/>
+                                <TableColumn fx:id="inscriptionDateColumn" text="Date inscription" prefWidth="150"/>
+                                <TableColumn fx:id="inscriptionStatutColumn" text="Statut" prefWidth="150"/>
+                            </columns>
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+                        </TableView>
+                    </center>
+
+                    <!-- Boutons d'action inscriptions -->
+                    <bottom>
+                        <HBox spacing="10" styleClass="button-bar">
+                            <Button fx:id="btnAjouterInscription" text="Nouvelle inscription" onAction="#handleAjouterInscription" styleClass="btn-success"/>
+                            <Button fx:id="btnConfirmerInscription" text="Confirmer" onAction="#handleConfirmerInscription" styleClass="btn-primary"/>
+                            <Button fx:id="btnAnnulerInscription" text="Annuler" onAction="#handleAnnulerInscription" styleClass="btn-warning"/>
+                            <Button fx:id="btnSupprimerInscription" text="Supprimer" onAction="#handleSupprimerInscription" styleClass="btn-danger"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button text="Rafraîchir" onAction="#handleRafraichirInscriptions" styleClass="btn-secondary"/>
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+                        </HBox>
+                    </bottom>
+                </BorderPane>
+            </Tab>
+
+        </TabPane>
+    </center>
+
+    <!-- Pied de page -->
+    <bottom>
+        <HBox styleClass="footer">
+            <Label fx:id="statusLabel" text="Prêt" styleClass="status-label"/>
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+        </HBox>
+    </bottom>
+
+</BorderPane>

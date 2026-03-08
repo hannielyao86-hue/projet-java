@@ -1,20 +1,20 @@
 package model;
 
 /**
- * Représente un membre de la salle de sport.
+ * Représente un membre de la salle de sport, Un membre a 0 ou 1 abonnement.
  */
 public class Membre {
     private int idMembre;
     private String nomMembre;
     private String emailMembre;
     private String phone;
-    private Abonnement abonnement;
+    private Integer idAbonnement;  // ← Peut être NULL
 
     // Constructeur par défaut
     public Membre() {
     }
 
-    // Constructeur avec tous ses paramètres
+    // Constructeur avec paramètres (sans abonnement)
     public Membre(int idMembre, String nomMembre, String emailMembre, String phone) {
         this.idMembre = idMembre;
         this.nomMembre = nomMembre;
@@ -22,7 +22,16 @@ public class Membre {
         this.phone = phone;
     }
 
-    // utilisations Getters et Setters
+    // Constructeur avec paramètres (avec abonnement)
+    public Membre(int idMembre, String nomMembre, String emailMembre, String phone, Integer idAbonnement) {
+        this.idMembre = idMembre;
+        this.nomMembre = nomMembre;
+        this.emailMembre = emailMembre;
+        this.phone = phone;
+        this.idAbonnement = idAbonnement;
+    }
+
+    // Getters et Setters
     public int getIdMembre() {
         return idMembre;
     }
@@ -55,15 +64,14 @@ public class Membre {
         this.phone = phone;
     }
 
-    public Abonnement getAbonnement() {
-        return abonnement;
+    public Integer getIdAbonnement() {
+        return idAbonnement;
     }
 
-    public void setAbonnement(Abonnement abonnement) {
-        this.abonnement = abonnement;
+    public void setIdAbonnement(Integer idAbonnement) {
+        this.idAbonnement = idAbonnement;
     }
 
-    //permet de  comprendre ce qu'il y a dans l'objet
     @Override
     public String toString() {
         return "Membre{" +
@@ -71,6 +79,7 @@ public class Membre {
                 ", nomMembre='" + nomMembre + '\'' +
                 ", emailMembre='" + emailMembre + '\'' +
                 ", phone='" + phone + '\'' +
+                ", idAbonnement=" + idAbonnement +
                 '}';
     }
 }

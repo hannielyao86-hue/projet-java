@@ -10,17 +10,19 @@ public class Abonnement {
     private LocalDate dateDebut;
     private LocalDate dateFin;
     private String statutAbonnement;
+    private String nomAbonnement;
 
     // Constructeur par défaut
     public Abonnement() {
     }
 
     // Constructeur avec tous ses paramètres
-    public Abonnement(int idAbonnement, LocalDate dateDebut, LocalDate dateFin, String statutAbonnement) {
+    public Abonnement(int idAbonnement, LocalDate dateDebut, LocalDate dateFin, String statutAbonnement, String nomAbonnement) {
         this.idAbonnement = idAbonnement;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.statutAbonnement = statutAbonnement;
+        this.nomAbonnement = nomAbonnement;
     }
 
     //utilisations des Getters et Setters
@@ -56,6 +58,14 @@ public class Abonnement {
         this.statutAbonnement = statutAbonnement;
     }
 
+    public String getNomAbonnement() {
+        return nomAbonnement;
+    }
+
+    public void setNomAbonnement(String nomAbonnement) {
+        this.nomAbonnement = nomAbonnement;
+    }
+
     //permet de comprendre ce qu'il y a dans l'objet
     @Override
     public String toString() {
@@ -64,6 +74,7 @@ public class Abonnement {
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
                 ", statutAbonnement='" + statutAbonnement + '\'' +
+                ", nomAbonnement='" + nomAbonnement + '\'' +
                 '}';
     }
 }
