@@ -17,8 +17,6 @@
 *   <li>view : Interface utilisateur (JavaFX)</li>
 * </ul>
 *
-* @author merveilline fouelefack
-
 
 #  Gym Manager
 

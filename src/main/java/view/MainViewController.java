@@ -502,11 +502,109 @@ public class MainViewController {
         }
     }
 
+    /**
+     * Modifie l'activité sélectionnée.
+     */
     @FXML
     private void handleModifierActivite() {
-        showInfo("Fonctionnalité", "Modification d'activité à implémenter");
+        Activiter selected = activiteTableView.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showWarning("Aucune sélection", "Veuillez sélectionner une activité à modifier.");
+            return;
+        }
+
+        try {
+            Dialog<Activiter> dialog = new Dialog<>();
+            dialog.setTitle("Modifier activité");
+            dialog.setHeaderText("Modifier les informations de " + selected.getNomActivite());
+
+            ButtonType btnValider = new ButtonType("Modifier", ButtonBar.ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes().addAll(btnValider, ButtonType.CANCEL);
+
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+
+            // Champs pré-remplis avec les valeurs actuelles
+            TextField nomField = new TextField(selected.getNomActivite());
+
+            DatePicker datePicker = new DatePicker(selected.getDateActivite());
+
+            TextField heureDebutField = new TextField(selected.getHeureDebut().toString());
+            heureDebutField.setPromptText("HH:MM");
+
+            TextField heureFinField = new TextField(selected.getHeureFin().toString());
+            heureFinField.setPromptText("HH:MM");
+
+            // ComboBox Coach
+            ComboBox<Coach> coachCombo = new ComboBox<>();
+            List<Coach> coachs = coachDao.findAll();
+            coachCombo.setItems(FXCollections.observableArrayList(coachs));
+            coachCombo.setValue(selected.getCoach()); // Coach actuel sélectionné
+
+            // ComboBox Salle
+            ComboBox<Salle> salleCombo = new ComboBox<>();
+            List<Salle> salles = salleDao.findAll();
+            salleCombo.setItems(FXCollections.observableArrayList(salles));
+            salleCombo.setValue(selected.getSalle()); // Salle actuelle sélectionnée
+
+            grid.add(new Label("Nom :"), 0, 0);
+            grid.add(nomField, 1, 0);
+            grid.add(new Label("Date :"), 0, 1);
+            grid.add(datePicker, 1, 1);
+            grid.add(new Label("Heure début :"), 0, 2);
+            grid.add(heureDebutField, 1, 2);
+            grid.add(new Label("Heure fin :"), 0, 3);
+            grid.add(heureFinField, 1, 3);
+            grid.add(new Label("Coach :"), 0, 4);
+            grid.add(coachCombo, 1, 4);
+            grid.add(new Label("Salle :"), 0, 5);
+            grid.add(salleCombo, 1, 5);
+
+            dialog.getDialogPane().setContent(grid);
+
+            dialog.setResultConverter(dialogButton -> {
+                if (dialogButton == btnValider) {
+                    try {
+                        Integer idSalle = salleCombo.getValue() != null
+                                ? salleCombo.getValue().getIdSalle()
+                                : null;
+
+                        activiteController.modifierActivite(
+                                selected.getIdActivite(),
+                                nomField.getText(),
+                                datePicker.getValue(),
+                                LocalTime.parse(heureDebutField.getText()),
+                                LocalTime.parse(heureFinField.getText()),
+                                coachCombo.getValue().getIdCoach(),
+                                idSalle
+                        );
+                        return selected;
+                    } catch (Exception e) {
+                        showError("Erreur de validation", e.getMessage());
+                        return null;
+                    }
+                }
+                return null;
+            });
+
+            Optional<Activiter> result = dialog.showAndWait();
+            result.ifPresent(activite -> {
+                handleRafraichirActivites();
+                showInfo("Activité modifiée", "L'activité a été modifiée avec succès.");
+            });
+
+        } catch (BusinessException e) {
+            showError("Erreur de validation", e.getMessage());
+        } catch (Exception e) {
+            showError("Erreur", "Impossible de modifier l'activité : " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Supprime l'activité sélectionnée.
+     */
     @FXML
     private void handleSupprimerActivite() {
         Activiter selected = activiteTableView.getSelectionModel().getSelectedItem();
@@ -515,6 +613,7 @@ public class MainViewController {
             return;
         }
 
+        // Confirmation
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Confirmation de suppression");
         confirmation.setHeaderText("Supprimer l'activité " + selected.getNomActivite() + " ?");
@@ -528,6 +627,7 @@ public class MainViewController {
                 showInfo("Activité supprimée", "L'activité a été supprimée avec succès.");
             } catch (Exception e) {
                 showError("Erreur", "Impossible de supprimer l'activité : " + e.getMessage());
+                e.printStackTrace();
             }
         }
     }

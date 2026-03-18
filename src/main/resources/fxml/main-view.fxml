@@ -13,7 +13,7 @@
 
     <!--En-tête -->
     <top>
-        <VBox styleClass="header">
+        <VBox styleClass="header" alignment="CENTER" spacing="5" >
             <Label text="GYM MANAGER" styleClass="app-title">
                 <font>
                     <Font name="System Bold" size="28.0"/>
