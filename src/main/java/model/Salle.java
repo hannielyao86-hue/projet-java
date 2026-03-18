@@ -48,10 +48,6 @@ public class Salle {
     //permet de  comprendre ce qu'il y a dans l'objet
     @Override
     public String toString() {
-        return "Salle{" +
-                "idSalle=" + idSalle +
-                ", nomSalle='" + nomSalle + '\'' +
-                ", capacite=" + capacite +
-                '}';
+        return  nomSalle;
     }
 }

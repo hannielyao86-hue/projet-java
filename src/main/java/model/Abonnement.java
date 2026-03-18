@@ -69,12 +69,6 @@ public class Abonnement {
     //permet de comprendre ce qu'il y a dans l'objet
     @Override
     public String toString() {
-        return "Abonnement{" +
-                "idAbonnement=" + idAbonnement +
-                ", dateDebut=" + dateDebut +
-                ", dateFin=" + dateFin +
-                ", statutAbonnement='" + statutAbonnement + '\'' +
-                ", nomAbonnement='" + nomAbonnement + '\'' +
-                '}';
+        return  nomAbonnement;
     }
 }

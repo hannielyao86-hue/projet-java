@@ -70,12 +70,8 @@ public class Inscription {
     //permet de  comprendre ce qu'il y a dans l'objet
     @Override
     public String toString() {
-        return "Inscription{" +
-                "idInscription=" + idInscription +
-                ", dateInscription=" + dateInscription +
-                ", statut='" + statut + '\'' +
-                ", membre=" + (membre != null ? membre.getNomMembre() : "null") +
-                ", activite=" + (activite != null ? activite.getNomActivite() : "null") +
-                '}';
+        String nomMembre = (membre != null) ? membre.getNomMembre() : "N/A";
+        String nomActivite = (activite != null) ? activite.getNomActivite() : "N/A";
+        return nomMembre + " - " + nomActivite;
     }
 }

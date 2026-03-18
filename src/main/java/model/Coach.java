@@ -57,11 +57,6 @@ public class Coach {
     //permet de  comprendre ce qu'il y a dans l'objet
     @Override
     public String toString() {
-        return "Coach{" +
-                "idCoach=" + idCoach +
-                ", nomCoach='" + nomCoach + '\'' +
-                ", emailCoach='" + emailCoach + '\'' +
-                ", specialite='" + specialite + '\'' +
-                '}';
+        return nomCoach;
     }
 }

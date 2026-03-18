@@ -74,12 +74,6 @@ public class Membre {
 
     @Override
     public String toString() {
-        return "Membre{" +
-                "idMembre=" + idMembre +
-                ", nomMembre='" + nomMembre + '\'' +
-                ", emailMembre='" + emailMembre + '\'' +
-                ", phone='" + phone + '\'' +
-                ", idAbonnement=" + idAbonnement +
-                '}';
+        return nomMembre;
     }
 }

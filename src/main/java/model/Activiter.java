@@ -91,14 +91,6 @@ public class Activiter {
     //permet de  comprendre ce qu'il y a dans l'objet
     @Override
     public String toString() {
-        return "Activite{" +
-                "idActivite=" + idActivite +
-                ", nomActivite='" + nomActivite + '\'' +
-                ", dateActivite=" + dateActivite +
-                ", heureDebut=" + heureDebut +
-                ", heureFin=" + heureFin +
-                ", coach=" + (coach != null ? coach.getNomCoach() : "null") +
-                ", salle=" + (salle != null ? salle.getNomSalle() : "null") +
-                '}';
+        return nomActivite;
     }
 }
