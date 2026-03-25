@@ -11,9 +11,10 @@ import java.sql.SQLException;
 public class DatabaseConnection {
 
     // Configuration  de MySQL
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/gym_manager";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = ""; // Vide par défaut pour WAMP
+    private static final String DB_URL = System.getProperty("test.env") != null ?
+        "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1" : "jdbc:mysql://localhost:3306/gym_manager";
+    private static final String DB_USER = System.getProperty("test.env") != null ? "sa" : "root";
+    private static final String DB_PASSWORD = System.getProperty("test.env") != null ? "" : ""; // Vide par défaut pour WAMP
 
     // Cette classe ne conserve plus de connexion singleton.
     // Chaque appel à getConnection() crée et retourne une nouvelle connexion.
@@ -32,15 +33,22 @@ public class DatabaseConnection {
      */
     public static Connection getConnection() throws SQLException {
         try {
-            // Chargement du driver MySQL
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            if (System.getProperty("test.env") != null) {
+                Class.forName("org.h2.Driver");
+            } else {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            }
         } catch (ClassNotFoundException e) {
-            System.err.println("❌ Driver MySQL non trouvé !");
-            throw new SQLException("Driver MySQL non disponible", e);
+            System.err.println("❌ Driver de base de données non trouvé !");
+            throw new SQLException("Driver non disponible", e);
         }
 
         Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-        System.out.println("✅ Connexion MySQL réussie : gym_manager");
+        if (System.getProperty("test.env") != null) {
+            System.out.println("✅ Connexion H2 réussie : testdb");
+        } else {
+            System.out.println("✅ Connexion MySQL réussie : gym_manager");
+        }
         return conn;
     }
 
